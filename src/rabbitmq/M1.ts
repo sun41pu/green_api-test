@@ -3,9 +3,14 @@ import config from "../config";
 import Consumer from "./consumer";
 import Producer from "./producer";
 
-export default class RabbitMQCLient {
+class RabbitMQCLient {
 
-    
+    private constructor(){};
+
+    private static client: RabbitMQCLient;
+
+    private isConnected = false;
+
     private connection: Connection;
     private consumer: Consumer;
     private producer: Producer;
@@ -13,6 +18,10 @@ export default class RabbitMQCLient {
     private consCh: Channel;
 
     async init() {
+        if(this.isConnected) {
+            return;
+        }
+
         try {
             this.connection = await connect(config.rabbitMQ.url)
 
@@ -26,15 +35,28 @@ export default class RabbitMQCLient {
 
             this.consumer.getMessages()
 
+            this.isConnected = true;
+
         } catch {
 
         }
     }
 
     async produceMessage(data: any) {
-        if(!this.connection) {
+        if(!this.isConnected) {
             await this.init();
         }
-        return await this.producer.sendMessage(data)
+        return await this.producer.sendMessage(data);
+    }
+
+    public static getClient() {
+        if(!this.client) {
+            this.client = new RabbitMQCLient();
+        }
+
+        return this.client;
     }
 }
+
+
+export default RabbitMQCLient.getClient();
