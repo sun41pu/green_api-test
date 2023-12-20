@@ -6,7 +6,7 @@ import M2 from "./rabbitmq_M2/M2"
 const server = express();
 server.use(express.json())
 
-server.post("/multiply", async (req, res) => {
+server.post("/double", async (req, res) => {
     try {
         if(!req.body.num || typeof req.body.num !== "number") {
             throw new Error(`Неверный формат входного параметра num, ожидается число, но получили: ${typeof req.body.num}`)
@@ -30,7 +30,7 @@ server.post("/multiply", async (req, res) => {
 
 
 
-server.listen(3001, async ()=> {
+server.listen(3000, async ()=> {
     try {
         M1.init();
         M2.init();
