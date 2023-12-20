@@ -19,7 +19,10 @@ export default class Consumer {
                 //а также повешен ивент по id операции
                 this.replQueueName, 
                 (ms: ConsumeMessage) => {
-                this.replyEvent.emit(ms.properties.correlationId.toString(), ms)
+                this.replyEvent.emit(ms.properties.correlationId.toString(), ms),
+                {
+                    noAck: true,
+                }
             })
         } catch (err) {
             console.error(err)
