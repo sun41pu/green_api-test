@@ -16,9 +16,7 @@ server.post("/double", async (req, res) => {
         
         res.send({ result })
     } catch (error) {
-        console.log("err");
-        
-        console.trace(error);
+        console.error(error)
         
         res.status(500).send({
             error: error.message,  
@@ -35,7 +33,7 @@ server.listen(3000, async ()=> {
         M1.init();
         M2.init();
     } catch (err) {
-        console.trace(err)
+        console.error(err)
     }
     
 })
