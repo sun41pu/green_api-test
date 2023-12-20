@@ -6,12 +6,11 @@ export default class Consumer {
 
 
     async getMessages() {
-        console.log("consuming messages");
 
         this.channel.consume(
             this.replQueueName, 
             (ms: ConsumeMessage) => {
-            console.log("reply: ", JSON.parse(ms.content.toString()));
+            console.log("Result: ", JSON.parse(ms.content.toString()));
         })
     }
 }

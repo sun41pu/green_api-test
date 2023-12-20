@@ -1,7 +1,7 @@
 import { Channel, Connection, connect } from "amqplib";
 import config from "../config";
-import Consumer from "./consumer";
-import Producer from "./producer";
+import Consumer from "./consumer_M2";
+import Producer from "./producer_M2";
 
 class RabbitMQCLient {
 
@@ -28,10 +28,10 @@ class RabbitMQCLient {
             this.prodCh = await this.connection.createChannel();
             this.consCh = await this.connection.createChannel();
 
-            const {queue: replyQueue} = await this.consCh.assertQueue('', {exclusive: true});
+            const {queue: rpcQueue} = await this.consCh.assertQueue(config.rabbitMQ.queues.RPCQueue, {exclusive: true});
 
-            this.consumer = new Consumer(this.consCh, replyQueue)
-            this.producer = new Producer(this.prodCh, replyQueue)
+            this.consumer = new Consumer(this.consCh, rpcQueue)
+            this.producer = new Producer(this.prodCh)
 
             this.consumer.getMessages()
 
@@ -42,11 +42,11 @@ class RabbitMQCLient {
         }
     }
 
-    async produceMessage(data: any) {
+    async produceMessage(data: any, correlationId: string, replyToQueue: string) {
         if(!this.isConnected) {
             await this.init();
         }
-        return await this.producer.sendMessage(data);
+        return await this.producer.sendMessage(data, correlationId, replyToQueue);
     }
 
     public static getClient() {

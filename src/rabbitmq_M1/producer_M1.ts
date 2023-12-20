@@ -6,7 +6,8 @@ export default class Producer {
     constructor(private channel: Channel, private replQueueName: string) {}
 
 
-    async sendMessage(data: number) {
+    async sendMessage(data: any) {
+        
         const uuid = randomUUID();
 
         this.channel.sendToQueue(
@@ -15,6 +16,9 @@ export default class Producer {
             {
                 replyTo: this.replQueueName,
                 correlationId: uuid,
+                headers: {
+                    num: data.num
+                }
             })
     }
 }
