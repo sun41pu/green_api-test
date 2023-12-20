@@ -23,6 +23,8 @@ class M1 {
 
     //Инициализация соединения и каналов для обработки сообщений
     async init() {
+        console.log("Инициализация M1\n");
+
         if(this.isConnected) {
             return;
         }
@@ -59,7 +61,9 @@ class M1 {
     async produceMessage(data: any) {
         try {
             const {num} = data
-            console.log(`Отправка сообщений от M1, данные для отправки: ${ num }`);
+            console.log("--------------");
+            
+            console.log(`Начало отправки сообщения от M1, данные для отправки: ${ num }`);
             if(!this.isConnected) {
                 await this.init();
             }

@@ -18,6 +18,11 @@ class M2 {
     private consCh: Channel;
 
     async init() {
+        console.log("****************\n");
+        console.log("Инициализация M2\n");
+        console.log("****************\n");
+        
+
         if(this.isConnected) {
             return;
         }
@@ -47,10 +52,6 @@ class M2 {
 
     async produceMessage(data: any, correlationId: string, replyToQueue: string) { 
         try {
-
-            console.log(`Отправка сообщений от М2, результат: ${data}, 
-                id запроса: ${correlationId}, очередь для ответа: ${replyToQueue}`);
-
             if(!this.isConnected) {
                 await this.init();
             }

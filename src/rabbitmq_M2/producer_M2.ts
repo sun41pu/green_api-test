@@ -5,6 +5,13 @@ export default class Producer {
 
 
     async sendMessage(data: number, correlationId: string, replQueue: string) {
+            console.log("-----------------\n");
+            
+            console.log("Отправка сообщения с результатом от M2\n");
+            console.log(`Очередь: ${replQueue}`);
+            console.log(`Опции - id запроса: ${correlationId}`);
+            
+            console.log("-----------------\n");
         try {
             this.channel.sendToQueue(
                 replQueue,

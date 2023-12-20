@@ -7,6 +7,10 @@ export default class Consumer {
 
     //Обработка воходящего сообшения от rabbit
     async getMessages() {
+            
+        console.log("Активация приема сообщений от M1\n");
+        console.log(`Очередь: ${this.prodQueueName}\n`);
+            
         try {
             this.channel.consume(
                 this.prodQueueName, 
@@ -19,6 +23,7 @@ export default class Consumer {
                         `для предоставления ответа от M2. correlationId: ${correlationId}, replyTo: ${replyTo}`)
                         
                     } else {
+                        
                         await MsHandler.handle(num, correlationId, replyTo)
                     }
             })

@@ -7,6 +7,11 @@ export default class Consumer {
 
     //Получение сообщений от rabbit
     async getMessages() {
+            
+        console.log("Активация приема сообщений от M2\n");
+        console.log(`Очередь: ${this.replQueueName}`);
+            
+            console.log("-----------------\n");
         try {
             this.channel.consume(
             

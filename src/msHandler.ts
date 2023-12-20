@@ -5,6 +5,8 @@ import rabbitServer from './rabbitmq_M2/M2'
 export default class MsHandler {
     static handle(arg: any, corrId: string, replyTo: string) {
         try {
+            console.log("Обработка задачи...");
+            
             setTimeout(async ()=> {
                 let res = {}
             
