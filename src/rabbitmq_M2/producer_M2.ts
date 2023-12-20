@@ -5,12 +5,16 @@ export default class Producer {
 
 
     async sendMessage(data: number, correlationId: string, replQueue: string) {
+        try {
+            this.channel.sendToQueue(
+                replQueue,
+                Buffer.from(JSON.stringify(data)), 
+                {
+                    correlationId: correlationId,
+                })
+        } catch (err) {
+            console.error(err)
+        }
         
-        this.channel.sendToQueue(
-            replQueue,
-            Buffer.from(JSON.stringify(data)), 
-            {
-                correlationId: correlationId,
-            })
     }
 }
