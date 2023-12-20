@@ -3,7 +3,7 @@
 2. Запуск программы осуществляется путем запуска команды nodemon src/server.ts в терминале
 ### Установка RabbitMQ и Erlang
 Также для корректной работы RabbitMQ необходима версия RabbitMQ Server 3.12.10, а также Erlang версии 26.1.2  
-Ссылка для скачивания RabbitMQ Server - https://www.rabbitmq.com/download.html  
+Ссылка на раздел документации для скачивания RabbitMQ Server - https://www.rabbitmq.com/download.html  
 Ссылка для скачивания Erlang - https://www.erlang.org/patches/otp-26.1.2
 ### Общие сведения
 Приложение запускается на порте 3000. Для проверки основного функционала необходимо отправить запрос на localhost:3000/double. В консоли будут отображаться сопроводительные логи, описывающие этапы работы программы  
